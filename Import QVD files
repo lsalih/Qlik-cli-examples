@@ -1,0 +1,7 @@
+# Below reads all files *.QVF stored in C:\Qlik_TestQVDImports folder and uploades them to Qlik App
+$fileEntries = (New-Object System.IO.DirectoryInfo ("C:\Qlik_TestQVDImports\")).EnumerateFiles("*.qvf")
+Connect-Qlik awsqliksense1 -TrustAllCerts -UseDefaultCredentials 
+foreach ($file in $fileEntries)
+{  
+               Import-QlikApp -file $file.FullName -name $file.BaseName -upload
+} 
