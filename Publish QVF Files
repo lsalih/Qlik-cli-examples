@@ -1,0 +1,4 @@
+Connect-Qlik QlikServeName -TrustAllCerts -UseDefaultCredentials 
+$SreamName = 'StreamNamegoeshere'
+$AppIDs = Get-QlikApp |Where-Object {$_.name -like "*TestDat*"} |Select-Object id, name 
+$AppIDs | ForEach-Object {Publish-QlikApp -id $_.id -stream $(Get-QlikStream |Where-Object {$_.name -eq $SreamName}).id -name $_.name}
